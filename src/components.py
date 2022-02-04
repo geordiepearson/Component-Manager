@@ -1,5 +1,5 @@
 """
-Module that contains all of the component models supported by the part searcher
+Module that contains all of the supported component models
 """
 
 import abc
@@ -29,6 +29,7 @@ class Component(metaclass=abc.ABCMeta):
         self._parameters = {self.TOLERANCE_SEARCH_CODE: None, self.PACKAGE_SEARCH_CODE: None,
                             self.SIZE_SEARCH_CODE: None, self.TEMPERATURE_SEARCH_CODE: None,
                             self.HEIGHT_SEARCH_CODE: None, self.STATUS_SEARCH_CODE: None}
+        self._price = None
 
     def __eq__(self, component):
         """ Compares this component with the given component. Returns True if their parameters are
@@ -101,7 +102,7 @@ class Component(metaclass=abc.ABCMeta):
         """ Determines if the given component can be substituted as an alternative
         for this component
         """
-
+        
 
 class Resistor(Component):
     # Search code for power and resistance values

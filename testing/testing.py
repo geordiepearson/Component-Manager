@@ -1,7 +1,8 @@
 import unittest
+import logging
 
 from components import *
-from partsorter import *
+from part_searcher import *
 
 class TestSearchMethods(unittest.TestCase):
     
@@ -29,7 +30,7 @@ class TestSearchMethods(unittest.TestCase):
         self.assertEqual(test_resistor._parameters[test_resistor.POWER_SEARCH_CODE], "0.125W, 1/8W")
         self.assertEqual(test_resistor._parameters[test_resistor.TOLERANCE_SEARCH_CODE], "±1%")
         self.assertEqual(test_resistor._parameters[test_resistor.SIZE_SEARCH_CODE], "0.079\" L x 0.049\" W (2.00mm x 1.25mm)")
-        self.assertEqual(test_resistor._parameters[test_resistor.HEIGHT_SEARCH_CODE], "0.020\" (0.50mm)")
+        self.assertEqual(test_resistor._parameters[test_resistor.HEIGHT_SEARCH_CODE], "0.024\" (0.60mm)")
         self.assertEqual(test_resistor._parameters[test_resistor.TEMPERATURE_SEARCH_CODE], "-55°C ~ 155°C")
         self.assertEqual(test_resistor._parameters[test_resistor.STATUS_SEARCH_CODE], "Active")
 
@@ -63,7 +64,9 @@ class TestSearchMethods(unittest.TestCase):
         test_capacitor_alternate = Capacitor('GRM32ER61C226KE20L')
         test_searcher.component_search(test_capacitor_alternate)
 
-        self.assertTrue(test_capacitor_original.is_alternative(test_capacitor_alternate))
+        self.assertTrue(test_capacitor_original.is_alternative(test_capacitor_alternate))    
 
 if __name__ == '__main__':
+    digikey_logger = logging.getLogger('digikey')
+    digikey_logger.setLevel(logging.NOTSET)
     unittest.main()
