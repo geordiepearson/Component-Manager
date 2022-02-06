@@ -22,6 +22,7 @@ class Component(metaclass=abc.ABCMeta):
         - name: The name of the component
         - parameters: The parameters describing the component in the format:
                       [Value, Package, Power, Tolerance, Size, Height, Temperature, Status]
+        - price: The price of the component for 1 of and 100 of as a tuple
     """
     def __init__(self, part_name):
         self._name = part_name
@@ -29,7 +30,7 @@ class Component(metaclass=abc.ABCMeta):
         self._parameters = {self.TOLERANCE_SEARCH_CODE: None, self.PACKAGE_SEARCH_CODE: None,
                             self.SIZE_SEARCH_CODE: None, self.TEMPERATURE_SEARCH_CODE: None,
                             self.HEIGHT_SEARCH_CODE: None, self.STATUS_SEARCH_CODE: None}
-        self._price = None
+        self._price = (0 ,0)
 
     def __eq__(self, component):
         """ Compares this component with the given component. Returns True if their parameters are

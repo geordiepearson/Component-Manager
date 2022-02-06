@@ -83,6 +83,8 @@ class ComponentConverter():
             return component_data[CSV_PART_NUMBER_INDEX]
 
         status = self.component_search(component)
+        if not status:
+            return component._name
         return component
 
     def create_component_list(self):
@@ -91,46 +93,7 @@ class ComponentConverter():
         while i < len(self._data):
             if (self._data[i][DESCRIPTION_TYPE_INDEX] == "Alternative"):
                 self._data[i][DESCRIPTION_TYPE_INDEX] = self._data[i - 1][DESCRIPTION_TYPE_INDEX]
-
+            
             component = self.data_to_component(self._data[i])
             self._components.append(component)
             i += 1
-
-
-
-        
-"""
-def main():
-    test_searcher = ComponentConverter("test.csv")
-    test_searcher.create_component_list()
-    for i in test_searcher._components:
-        print(i)
-
-if __name__ == "__main__":
-    main()
-
-
-def alternative_check(self, data):
-        Checks each component in the given data with the suppplied alternative and checks if it
-        is a valid alternative based on the component type. Displays to the console if a componenet
-        is not an alternative part.
-
-        Parameters:
-            - Alternative component data as a 2D list of componenets
-        
-        i = 0
-        while i < len(data):
-            original_component = self.data_to_component(data[i])
-            data[i + 1][DESCRIPTION_TYPE_INDEX] = data[i][DESCRIPTION_TYPE_INDEX] 
-            alternative_component = self.data_to_component(data[i + 1])
-
-            if (original_component is None or alternative_component is None):
-                i += 2
-                continue
-
-            if not original_component.is_alternative(alternative_component):
-                self._print_queue.append("Component " + alternative_component._name +
-                                        " is not an alternative for " +
-                                        original_component._name + ".")
-            i += 2
-"""
