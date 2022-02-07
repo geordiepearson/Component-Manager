@@ -3,7 +3,7 @@ Module containing all functionality to convert data into component models
 """
 import os
 import csv
-import json
+import pickle
 import digikey
 from digikey.v3.productinformation import KeywordSearchRequest
 
@@ -58,6 +58,7 @@ class ComponentConverter():
         if component is None:
             return False
 
+        # Handles all component parameters
         search_request = KeywordSearchRequest(keywords=component._name, record_count=1)
         result = digikey.keyword_search(body=search_request) 
         if result.products == []:
@@ -66,6 +67,21 @@ class ComponentConverter():
             for parameter in result.products[0]._parameters:
                 if parameter.parameter_id in component._parameters:
                     component._parameters[parameter.parameter_id] = parameter.value
+        
+            # Handles pricing breakpoints
+            for product in result.products:
+                for price in product.standard_pricing:
+                    if price.break_quantity == 1:
+                        if component._price[0] == 0 or price.total_price < component._price[0]:
+                            component._price[0] = price.total_price 
+                    
+                        # Handles lead time
+                        if product.quantity_available == 0:
+                            component._lead_time = result.products[0].manufacturer_lead_weeks
+                    
+                    if price.break_quantity == 100:
+                        if component._price[1] == 0 or price.total_price < component._price[1]:
+                            component._price[1] = price.total_price 
             return True
 
     def data_to_component(self, component_data):
@@ -97,3 +113,13 @@ class ComponentConverter():
             component = self.data_to_component(self._data[i])
             self._components.append(component)
             i += 1
+
+    def save_component_list(self, filename):
+        """ Saves the current component list using the pickel serialization module. """
+        with open(filename, 'wb') as component_file:
+            pickle.dump(self, component_file)
+
+    def read_component_list(self, filename):
+        with open(filename, 'rb') as component_file:
+            pass
+            #pickle.load()

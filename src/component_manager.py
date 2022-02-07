@@ -39,17 +39,33 @@ class ComponentManager():
             i += 2
 
     def check_bom_cost(self):
-        pass
+        """ Checks the price of components in the component list for 1 of and 100 of
+        the BoM products.
+        """
+        one_of_cost = 0
+        hundred_of_cost = 0
+
+        for component in self._components:
+            one_of_cost += component._price[0]
+            hundred_of_cost += component._price[1]
+
+        print("Price of 1 BoM: " + str(round(one_of_cost, 2)) + " $AUD per BoM.")
+        print("Price of 100 BoMs: " + str(round(hundred_of_cost / 100, 2)) + " $AUD per BoM.")
 
     def check_lead_time(self):
-        pass
+        """ Checks the list of components list for a estimated lead time on each product.
+        """
+        for component in self._components:
+            if component._lead_time != 0:
+                print("Leads time of " + component._name + " is " + component._lead_time + ".")
 
 def main():
     digikey_logger = logging.getLogger('digikey')
     digikey_logger.setLevel(logging.NOTSET)
 
     manager = ComponentManager()
-    manager.check_alternative()
+    manager._component_converter.save_component_list("Test")
+    #manager.check_bom_cost()
 
 if __name__ == "__main__":
     main()

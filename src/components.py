@@ -30,7 +30,8 @@ class Component(metaclass=abc.ABCMeta):
         self._parameters = {self.TOLERANCE_SEARCH_CODE: None, self.PACKAGE_SEARCH_CODE: None,
                             self.SIZE_SEARCH_CODE: None, self.TEMPERATURE_SEARCH_CODE: None,
                             self.HEIGHT_SEARCH_CODE: None, self.STATUS_SEARCH_CODE: None}
-        self._price = (0 ,0)
+        self._price = [0, 0]
+        self._lead_time = 0
 
     def __eq__(self, component):
         """ Compares this component with the given component. Returns True if their parameters are
