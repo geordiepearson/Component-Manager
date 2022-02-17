@@ -9,24 +9,28 @@ The functionality of the component manager applications include:
 
 # Quickstart
 ## Install
-This application requires the use of python3 and the pip module.
+This application requires the use of python3 and the pip module. 
+```
+sudo apt-get install python3-venv
+```
+Create the virtual environment.
+```
+python3 -m venv Component-Manager
+source ./Component-Manager/bin/activate
+cd Component-Manager
+pip install -e .
+```
+Set the enviromental variables to use the Digikey API in the .envrc file.
+```
+echo "export DIGIKEY_CLIENT_ID=Client ID" >> .envrc
+echo "export DIGIKEY_CLIENT_SECRET="Digikey Client Secret" > .envrc
+echo "export DIGIKEY_STORAGE_PATH="Digikey Storage Path" > .envrc
+```
+Install all needed packages.
 ```
 pip install digikey-api
 pip install direnv
 pip install pickel
-```
-Create the virtual environment.
-```
-python -m venv venv
-source ./venv/bin/activate
-pip install -e .
-direnv allow .
-```
-Set the enviromental variables to use the Digikey API.
-```
-export DIGIKEY_CLIENT_ID="Digikey Client ID"
-export DIGIKEY_CLIENT_SECRET="Digikey Client Secret"
-export DIGIKEY_STORAGE_PATH="Digikey Storage Path"
 ```
 # File Structure
 
