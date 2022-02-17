@@ -24,9 +24,9 @@ direnv allow .
 ```
 Set the enviromental variables to use the Digikey API.
 ```
-export DIGIKEY_CLIENT_ID=SoiqBpAtiBehMalnYBPvpspK4YIF80nJ
-export DIGIKEY_CLIENT_SECRET=wgraTG5KhDzSDDyi
-export DIGIKEY_STORAGE_PATH=/mnt/c/Users/Geord/Desktop/Projects/component_manager/cache
+export DIGIKEY_CLIENT_ID="Digikey Client ID"
+export DIGIKEY_CLIENT_SECRET="Digikey Client Secret"
+export DIGIKEY_STORAGE_PATH="Digikey Storage Path"
 ```
 # File Structure
 
