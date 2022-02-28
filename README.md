@@ -20,7 +20,6 @@ echo "export DIGIKEY_CLIENT_ID=Client ID" > .envrc
 echo "export DIGIKEY_CLIENT_SECRET=Digikey Client Secret" >> .envrc
 echo "export DIGIKEY_STORAGE_PATH=Digikey Storage Path" >> .envrc
 mkdir "Digikey Storage Path"
-export PYTHONPATH="{PYTHONPATH}:"
 ```
 With the virtual environment created, all needed packages can be installed.
 ```
