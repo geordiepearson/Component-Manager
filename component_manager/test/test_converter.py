@@ -1,10 +1,10 @@
+#-*- coding: utf-8 -*-
+
 import unittest
 from unittest.mock import patch
 import logging
 import os
 from io import StringIO
-import contextlib
-
 from component_manager.src import *
 
 class ConverterTesting(unittest.TestCase):
@@ -151,6 +151,4 @@ class ConverterTesting(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    digikey_logger = logging.getLogger('digikey')
-    digikey_logger.setLevel(logging.NOTSET)
     unittest.main()

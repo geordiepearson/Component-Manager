@@ -1,6 +1,6 @@
+#-*- coding: utf-8 -*-
+
 import unittest
-import logging
-import os
 
 from component_manager.src import *
 
@@ -234,5 +234,5 @@ class ComponentTesting(unittest.TestCase):
 
 if __name__ == '__main__':
     digikey_logger = logging.getLogger('digikey')
-    digikey_logger.setLevel(logging.NOTSET)
+    digikey_logger.setLevel(logging.INFO)
     unittest.main()
