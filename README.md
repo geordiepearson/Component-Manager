@@ -37,7 +37,7 @@ Checks the lead time and price of the components in the give file.
 ```
 python3 component_manager/src/component_app.py components -p -l
 ```
-Runs all tests for the application
+Runs all tests for the application.
 ```
 python3 -m unittest discover component_manager/test/
 ```
