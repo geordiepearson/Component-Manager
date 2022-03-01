@@ -9,7 +9,9 @@ The functionality of the component manager applications include:
 
 # Quickstart
 ## Install
-This application requires the use of python3 and the pip module. Initially configure the virtual environment using direnv.
+This application requires the use of python3 and the pip module. The user must also create a Digikey Production app to use the Digikey API. More information can be found [here](https://developer.digikey.com/).
+
+Initially configure the virtual environment using direnv.
 ```
 pip3 install direnv
 cd Component-Manager
