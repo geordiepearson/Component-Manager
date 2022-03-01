@@ -130,7 +130,7 @@ class ComponentTesting(unittest.TestCase):
         self.assertEqual(test_inductor._parameters[test_inductor.STATUS_SEARCH_CODE], "Active")
 
     def test_inductor_alternative(self):
-        """ Tests inductor alternative functionality
+        """ Tests inductor alternative functionality.
         """
         inductor_one = Inductor('74476410')
         inductor_two = Inductor('NLV32T-100J-PF')
@@ -145,7 +145,7 @@ class ComponentTesting(unittest.TestCase):
         self.assertFalse(inductor_one.is_alternative(inductor_three))
     
     def test_ferrite_equality(self):
-        """ Tests ferrite equality functionality
+        """ Tests ferrite equality functionality.
         """
         ferrite_one = Ferrite("QT1608RL120HC-2A")
         ferrite_two = Ferrite("BLM15AX601SN1D")
@@ -160,7 +160,7 @@ class ComponentTesting(unittest.TestCase):
         self.assertTrue(ferrite_one.__eq__(ferrite_three))
 
     def test_ferrite_search(self):
-        """ Tests ferrite search functionality
+        """ Tests ferrite search functionality.
         """
         test_converter = ComponentConverter()
         test_ferrite = Ferrite('BLM15AX601SN1D')
@@ -174,7 +174,7 @@ class ComponentTesting(unittest.TestCase):
         self.assertEqual(test_ferrite._parameters[test_ferrite.STATUS_SEARCH_CODE], "Active")
 
     def test_ferrite_alternative(self):
-        """ Tests ferrite alternative functionality
+        """ Tests ferrite alternative functionality.
         """
         ferrite_one = Ferrite("BLM15AX601SN1D")
         ferrite_two = Ferrite("BLM18PG121SN1")
@@ -230,7 +230,53 @@ class ComponentTesting(unittest.TestCase):
 
         self.assertFalse(choke_one.is_alternative(choke_two))
         self.assertFalse(choke_one.is_alternative(choke_three))
+    
 
+    def test_diode_equality(self):
+        """ Tests diode equality functionality.
+        """
+        diode_one = Diode("1N4934-T")
+        diode_two = Diode("BAT54-7-F")
+        diode_three = Diode("1N4934-T")
+
+        test_converter = ComponentConverter()
+
+        test_converter.component_search(diode_one)
+        test_converter.component_search(diode_two)
+        test_converter.component_search(diode_three)
+
+        self.assertFalse(diode_one.__eq__(diode_two))
+        self.assertTrue(diode_one.__eq__(diode_three))
+
+    def test_diode_search(self):
+        """ Tests diode search functionality.
+        """
+        test_converter = ComponentConverter()
+        test_diode = Diode("BAT54-7-F")
+        test_converter.component_search(test_diode)
+
+        self.assertEqual(test_diode._parameters[test_diode.TYPE_SEARCH_CODE], "Schottky")
+        self.assertEqual(test_diode._parameters[test_diode.CURRENT_SEARCH_CODE], "200mA (DC)")
+        self.assertEqual(test_diode._parameters[test_diode.VOLTAGE_REVERSE_SEARCH_CODE], "30 V")
+        self.assertEqual(test_diode._parameters[test_diode.VOLTAGE_FORWARD_SEARCH_CODE], "800 mV @ 100 mA")
+        self.assertEqual(test_diode._parameters[test_diode.PACKAGE_SEARCH_CODE], "TO-236-3, SC-59, SOT-23-3")
+        self.assertEqual(test_diode._parameters[test_diode.TEMPERATURE_SEARCH_CODE], "-65°C ~ 150°C")
+        self.assertEqual(test_diode._parameters[test_diode.STATUS_SEARCH_CODE], "Active")
+
+    def test_diode_alternative(self):
+        """ Tests diode alternative functionality.
+        """
+        diode_one = Diode("1N4934-T")
+        diode_two = Diode("BAT54-7-F")
+        diode_three = Diode('1N4937-T')
+        test_converter = ComponentConverter()
+
+        test_converter.component_search(diode_one)
+        test_converter.component_search(diode_two)
+        test_converter.component_search(diode_three)
+
+        self.assertFalse(diode_one.is_alternative(diode_two))
+        self.assertTrue(diode_one.is_alternative(diode_three))
 
 if __name__ == '__main__':
     digikey_logger = logging.getLogger('digikey')

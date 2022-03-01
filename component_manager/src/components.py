@@ -222,7 +222,7 @@ class Inductor(Component):
         if len(self._parameters) != len(component._parameters):
             return False
 
-        functionality_parameters = [self.INDUCTANCE_SEARCH_CODE, self.SATURATION_SEARCH_CODE]
+        functionality_parameters = [self.INDUCTANCE_SEARCH_CODE, self.SATURATION_SEARCH_CODE, self.PACKAGE_SEARCH_CODE]
         status = self.compare_functionality(component, functionality_parameters)
         if not status:
             return False
@@ -278,7 +278,7 @@ class Ferrite(Component):
         if len(self._parameters) != len(component._parameters):
             return False
 
-        functionality_parameters = [self.FILTER_SEARCH_CODE]
+        functionality_parameters = [self.FILTER_SEARCH_CODE, self.PACKAGE_SEARCH_CODE]
         status = self.compare_functionality(component, functionality_parameters)
         if not status:
             return False
@@ -333,3 +333,83 @@ class Choke(Component):
             print(self._name + " and " + component._name + ": Current specfications aren't sufficient.")
             return False
         return True
+
+class Diode(Component):
+    # Indexes to access data fields within search results array
+    TEMPERATURE_SEARCH_CODE = 1686
+    TYPE_SEARCH_CODE = 96
+    CURRENT_SEARCH_CODE = 914
+    VOLTAGE_REVERSE_SEARCH_CODE = 2071
+    VOLTAGE_FORWARD_SEARCH_CODE = 2261
+
+    """ Diode model class, inherits from generic component class
+    
+    Parameters:
+        - part_name: The name of the component to be created
+    """
+    def __init__(self, part_name):
+        Component.__init__(self, part_name)
+        self._parameters[self.TYPE_SEARCH_CODE] = None
+        self._parameters[self.CURRENT_SEARCH_CODE] = None
+        self._parameters[self.VOLTAGE_REVERSE_SEARCH_CODE] = None
+        self._parameters[self.VOLTAGE_FORWARD_SEARCH_CODE] = None
+
+    def is_alternative(self, component):
+        """ Determines if the given component can be used as an alternative for this diode.
+        It can be used as an alternative if all parameters are the same except the part name. 
+        
+        Parameters:
+            - component: The component to check with this resistor
+
+        Returns: True if it is a valid alternative, false otherwise
+        """
+        if len(self._parameters) != len(component._parameters):
+            return False
+
+        functionality_parameters = [self.TYPE_SEARCH_CODE, self.CURRENT_SEARCH_CODE,
+                                    self.VOLTAGE_FORWARD_SEARCH_CODE, self.PACKAGE_SEARCH_CODE]
+        status = self.compare_functionality(component, functionality_parameters)
+        if not status:
+            return False
+
+        status = self.compare_temperature(component)
+        if not status:
+            return False
+
+        # Compares max reverse voltage
+        words = self._parameters[self.VOLTAGE_REVERSE_SEARCH_CODE].split()     
+        original_voltage = words[0]
+        if (words[1] == 'V'):
+            original_current = original_voltage * 1000
+
+        alternate_voltage = 0
+        words = component._parameters[self.VOLTAGE_REVERSE_SEARCH_CODE].split()
+        alternate_voltage = words[0]
+        if (words[1] == 'V'):
+            alternate_voltage = alternate_voltage * 1000
+
+        if (alternate_voltage < original_current):
+            print(self._name + " and " + component._name + ": Reverse voltage specfications aren't sufficient.")
+            return False
+
+        return True
+
+class IC(Component):
+    """ IC model class, inherits from generic component class
+    
+    Parameters:
+        - part_name: The name of the component to be created
+    """
+    def __init__(self, part_name):
+        Component.__init__(self, part_name)
+
+    def is_alternative(self, component):
+        """ Determines if the given component can be used as an alternative for this diode.
+        It can be used as an alternative if all parameters are the same except the part name. 
+        
+        Parameters:
+            - component: The component to check with this resistor
+
+        Returns: True if it is a valid alternative, false otherwise
+        """
+        return False

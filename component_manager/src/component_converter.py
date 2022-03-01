@@ -94,8 +94,12 @@ class ComponentConverter():
             component = Inductor(component_data[CSV_PART_NUMBER_INDEX])
         elif component_data[CSV_DESCRIPTION_INDEX].split(", ")[DESCRIPTION_TYPE_INDEX] == "Ferrite Bead":
             component = Ferrite(component_data[CSV_PART_NUMBER_INDEX])
+        elif component_data[CSV_DESCRIPTION_INDEX].split(", ")[DESCRIPTION_TYPE_INDEX] == "Choke":
+            component = Choke(component_data[CSV_PART_NUMBER_INDEX])
+        elif component_data[CSV_DESCRIPTION_INDEX].split(", ")[DESCRIPTION_TYPE_INDEX] == "Diode":
+            component = Diode(component_data[CSV_PART_NUMBER_INDEX])
         else: 
-            return component_data[CSV_PART_NUMBER_INDEX]
+            component = IC(component_data[CSV_PART_NUMBER_INDEX])
 
         status = self.component_search(component)
         if not status:
