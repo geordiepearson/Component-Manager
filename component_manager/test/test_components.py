@@ -234,5 +234,5 @@ class ComponentTesting(unittest.TestCase):
 
 if __name__ == '__main__':
     digikey_logger = logging.getLogger('digikey')
-    digikey_logger.setLevel(logging.INFO)
+    digikey_logger.setLevel(logging.NOTSET)
     unittest.main()

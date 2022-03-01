@@ -8,7 +8,7 @@ from io import StringIO
 from component_manager.src import *
 
 class ConverterTesting(unittest.TestCase):
-    PATH_TO_TESTS = os.getcwd()
+    PATH_TO_TESTS = os.getcwd() + "/component_manager/test"
     def test_read_csv_file(self):
         """ Tests reading of CSV files.
         """
@@ -151,4 +151,6 @@ class ConverterTesting(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    digikey_logger = logging.getLogger('digikey')
+    digikey_logger.setLevel(logging.NOTSET)
     unittest.main()
