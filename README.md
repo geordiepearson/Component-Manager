@@ -1,5 +1,5 @@
 # Python Interface and Application for Digikey API
-The Component Manager is a tool that automates various tasks for embedded system designers through the use of the digikey api. BoMs can be provided to the application using a specificed CSV file format and data manipluation can be done using a command line interface. Note that this tool is intended to be used in a linux based environment but can be adapted to other operating systems.
+The Component Manager is a tool that automates various tasks for embedded system designers through the use of the digikey api. BoMs can be provided to the application using a specificed CSV file format and data manipluation can be done using a command line interface. Once a CSV file is provided to the tool, it automatically saves a copy of the BoM in a serial format for later use. Note that this tool is intended to be used in a linux based environment but can be adapted to other operating systems.
 
 # Functionality
 The functionality of the component manager applications include:
@@ -41,5 +41,3 @@ Runs all tests for the application.
 ```
 python3 -m unittest discover component_manager/test/
 ```
-# File Structure
-
